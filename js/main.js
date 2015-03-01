@@ -2,14 +2,28 @@ var $form = $('.form');
 var $chore = $('.chore');
 var $list = $('.list');
 
-
 $form.on('submit', function (e) {
-   e.preventDefault();
+    e.preventDefault();
     
     var $li = $('<li>');
-    var $choreH2 = $('<H2>').html($chore.val());
+    var $choreP = $('<p>').html($chore.val());
+    var $del = $('<button>X</button>');
     
-    $li.append($choreH2);
+    $li.append($choreP, $del);
     $list.append($li);
     
+    $li.addClass('list-item');
+    $del.addClass('delete-button');
+    $choreP.addClass('list-text');
+    $choreP.add($del).addClass('inline');
+    
+    $form[0].reset();
+    
+    $del.on('click', function () {
+        $li.remove();
+    });
+});
+
+$list.on('click', 'li', function () {
+    $(this).toggleClass('task-complete');
 });
